@@ -1,0 +1,47 @@
+<div class="body">
+    <div class="login">
+        <form [formGroup]="form" (ngSubmit)="addUser()">
+            <h1>Registrar Usuario</h1>
+
+            <mat-form-field class="ancho" appearance="fill" hideRequiredMarker>
+                <mat-label>Nombre</mat-label>
+                <input matInput autocomplete="off" formControlName="nombre">
+            </mat-form-field>
+
+            <mat-form-field class="ancho" appearance="fill" hideRequiredMarker>
+                <mat-label>Apellido</mat-label>
+                <input matInput autocomplete="off" formControlName="apellido">
+            </mat-form-field>
+            
+            <mat-form-field class="ancho" appearance="fill" hideRequiredMarker>
+                <mat-label>Username</mat-label>
+                <input matInput autocomplete="off" formControlName="username">
+            </mat-form-field>
+
+            <mat-form-field class="ancho" appearance="fill" hideRequiredMarker>
+                <mat-label>Contraseña</mat-label>
+                <input type="password" matInput autocomplete="off" formControlName="password" >
+            </mat-form-field>
+
+            <mat-form-field class="ancho" appearance="fill" hideRequiredMarker>
+                <mat-label>Confirmar contraseña</mat-label>
+                <input type="password" matInput autocomplete="off" formControlName="passwordConfirm" >
+            </mat-form-field>
+            
+            <mat-form-field class="ancho" appearance="fill" hideRequiredMarker>
+                <mat-label>Pais</mat-label>
+                <input matInput autocomplete="off" formControlName="pais">
+            </mat-form-field> 
+
+            <mat-form-field class="ancho" appearance="fill" hideRequiredMarker>
+                <mat-label>Ciudad</mat-label>
+                <input matInput autocomplete="off" formControlName="ciudad">
+            </mat-form-field>
+            <br>
+            <button type="submit" mat-raised-button color="primary" class="ancho button" >Registrarse</button>
+            <br>
+            <a routerLink="/login">Volver</a>
+
+        </form>
+    </div>
+</div>
