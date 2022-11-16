@@ -2,12 +2,13 @@
     <mat-toolbar color="primary">
       <span>My Application</span>
       <span class="example-spacer"></span>
-      <button mat-button >Bandeja de entrada</button>
+      <button mat-button (click)="bandejaDeEntrada()">Bandeja de entrada</button>
       <button mat-button >Enviados</button>
+      <button mat-button >Enviar Mensaje</button>
       <span class="example-spacer"></span>
       <button mat-button >Nombre</button>
       <button mat-icon-button>
-        <mat-icon routerLink="/login">logout</mat-icon>
+        <mat-icon (click)="logOut()">logout</mat-icon>
     </button>
     </mat-toolbar>
 </p>

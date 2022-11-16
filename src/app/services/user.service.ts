@@ -1,5 +1,5 @@
 import { HttpClient } from '@angular/common/http';
-import { Injectable } from '@angular/core';
+import { EventEmitter, Injectable, Output } from '@angular/core';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { User } from '../interfaces/user';
@@ -8,13 +8,16 @@ import { User } from '../interfaces/user';
   providedIn: 'root'
 })
 export class UserService {
+  @Output() disparadorDeObjeto: EventEmitter<any> = new EventEmitter()
+
+  
   private myAppUrl: string
   private myApiUrl: string
 
   constructor(private http: HttpClient) {
     this.myAppUrl = environment.endpoint
     this.myApiUrl = "api/users"
-   }
+  }
 
   signIn(user: User): Observable<any>{
     return this.http.post(`${this.myAppUrl}${this.myApiUrl}`, user)
@@ -24,8 +27,5 @@ export class UserService {
   login(user: User): Observable<String>{
     return this.http.post<string>(`${this.myAppUrl}${this.myApiUrl}/login`, user)
   }
-
-
-
 
 }

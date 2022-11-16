@@ -3,7 +3,9 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
+import { Message } from 'src/app/interfaces/message';
 import { User } from 'src/app/interfaces/user';
+import { MessagesService } from 'src/app/services/messages.service';
 import { UserService } from 'src/app/services/user.service';
 
 
@@ -23,6 +25,7 @@ export class LoginComponent implements OnInit {
 
   constructor(private fb: FormBuilder, private toastr: ToastrService,
      private _userService: UserService,
+     private _messageService: MessagesService,
      private router: Router) {
 
     this.form = this.fb.group({
@@ -38,6 +41,13 @@ export class LoginComponent implements OnInit {
     const username = this.form.value.username
     const password = this.form.value.password
 
+    const objIngresar: Message = {
+      username_reseptor: username
+    }
+    
+    console.log(objIngresar)
+    
+    this._userService.disparadorDeObjeto.emit(objIngresar)
   }
 
   login(){
@@ -76,5 +86,3 @@ export class LoginComponent implements OnInit {
   }
 
 }
-
-

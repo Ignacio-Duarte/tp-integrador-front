@@ -12,8 +12,6 @@ import { ToastrModule } from 'ngx-toastr';
 import { HttpClientModule } from "@angular/common/http"
 
 
-
-
 // Componentes
 
 import { LoginComponent } from './components/login/login.component';

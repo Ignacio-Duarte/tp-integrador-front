@@ -1,8 +1,11 @@
 import { HttpClient, HttpHandler, HttpHeaders } from '@angular/common/http';
-import { Injectable, ViewChild } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Injectable, Input, ViewChild } from '@angular/core';
+import { observable, Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
+import { LoginComponent } from '../components/login/login.component';
 import { Message } from '../interfaces/message';
+import { User } from '../interfaces/user';
+import { UserService } from './user.service';
 
 
 
@@ -13,18 +16,27 @@ import { Message } from '../interfaces/message';
 
 export class MessagesService {
   private myAppUrl: string
-  private myApiUrl: string
+  private objIngresar: Message = {}
 
-  constructor(private http: HttpClient) {
+  constructor(private http: HttpClient, private _userService: UserService ) {
     this.myAppUrl = environment.endpoint
-    this.myApiUrl = `api/users/:username/messages/inbox`
   }
 
-  getMessage(): Observable<Message[]>{
+  capturarUsuario(){
+     this._userService.disparadorDeObjeto.subscribe(data => {
+      this.objIngresar = data
+      console.log("CapturarUsuario(): ", this.objIngresar)
+      return this.objIngresar
+    })
+  }
+
+  getMessages(objIngresar: Message): Observable<Message[]>{
+    this.capturarUsuario()
+    console.log("GetMessage (Nada que hacer aca)")
     const token = localStorage.getItem("token")
     const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`)
-
-    return this.http.get<Message[]>(`${this.myAppUrl}${this.myApiUrl}`, {headers: headers} );
+    // console.log(`${this.myAppUrl}${`api/users/${this.objIngresar.username_reseptor}/messages/inbox`}`)
+    return this.http.get<Message[]>(`${this.myAppUrl}${`api/users/${this.objIngresar.username_reseptor}/messages/inbox`}`, {headers: headers} );
   }
 
 }

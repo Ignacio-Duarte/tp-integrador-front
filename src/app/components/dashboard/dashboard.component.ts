@@ -1,46 +1,56 @@
 import { Component, OnInit } from '@angular/core';
 import { MessagesService } from 'src/app/services/messages.service';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Message } from 'src/app/interfaces/message';
+import { UserService } from 'src/app/services/user.service';
 
-export interface PeriodicElement {
-  name: string;
-  position: number;
-  weight: number;
-  symbol: string;
-}
 
-const ELEMENT_DATA: PeriodicElement[] = [
-  {position: 1, name: 'Hydrogen', weight: 1.0079, symbol: 'H'},
-  {position: 2, name: 'Helium', weight: 4.0026, symbol: 'He'},
-  {position: 3, name: 'Lithium', weight: 6.941, symbol: 'Li'},
-  {position: 4, name: 'Beryllium', weight: 9.0122, symbol: 'Be'},
-  {position: 5, name: 'Boron', weight: 10.811, symbol: 'B'},
-  {position: 6, name: 'Carbon', weight: 12.0107, symbol: 'C'},
-  {position: 7, name: 'Nitrogen', weight: 14.0067, symbol: 'N'},
-  {position: 8, name: 'Oxygen', weight: 15.9994, symbol: 'O'},
-  {position: 9, name: 'Fluorine', weight: 18.9984, symbol: 'F'},
-  {position: 10, name: 'Neon', weight: 20.1797, symbol: 'Ne'},
-];
+// const listMessages: Message[] = [
+//   {id_m: 1, username_remitente: "Nacho123", message: "Hola Prueba desde la tabla"}
+// ];
+
 
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
   styleUrls: ['./dashboard.component.css']
 })
+
+
 export class DashboardComponent implements OnInit {
+  constructor(private _userService: UserService, private _messageService: MessagesService, private fb: FormBuilder) {}
+  
+  listMessages: any[] = []
+  objIngresar: Message = {}
+  dataSource: any = []
 
-  displayedColumns: string[] = ['name', 'weight', 'symbol'];
-  dataSource = ELEMENT_DATA;
+  displayedColumns: string[] = ['id', 'Remitente', 'Mensaje', "item"];
 
-
-  constructor(private _messageService: MessagesService) { }
-
+  
+  
+  
   ngOnInit(): void {
-    this.getMessage()
+    
+    // this.getMessage(this.objIngresar)
+    
   }
 
-  getMessage(){
-    this._messageService.getMessage().subscribe(data => {
-      console.log(data);
+  //Sobre carga de metodo test
+  getMessagess(){
+    return this._messageService.getMessages(this.objIngresar).subscribe(data => {
+      this.listMessages.push(data)
+      this.dataSource = this.listMessages[0];
+      console.log("Aca el dataSource: ", this.dataSource)
     })
   }
+
+
+  getMessage(objIngresar: Message){
+    return this._messageService.getMessages(objIngresar).subscribe(data => {
+      this.listMessages.push(data)
+      this.dataSource = this.listMessages[0];
+      console.log("Aca el dataSource: ", this.dataSource)
+    })
+  }
+
 }
